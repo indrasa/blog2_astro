@@ -1,30 +1,98 @@
 ---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+const PageTitle = "About Me";
+
+const identitas = {
+    nama: "Indra Saputra Ahmadi",
+    umur: 31,
+    alamat: "Jl. Kebon Jeruk No. 1, Jakarta Barat",
+    pekerjaan: "Mahasiswa",
+};
+
+const skills = [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "Git",
+];
+
+const senang: boolean = true;
+const skillColor = "red";
+const fontWeight = "bold";
+const textCase = "uppercase";
+const finished = true;
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <h1>About Me</h1>
-        <h2>... and my new Astro site!</h2>
+<style is:global define:vars={{ skillColor, fontWeight, textCase }}>
+    h1 {
+        color: purple;
+        font-size: 4rem;
+    }
+    .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+    }
+</style>
 
-        <p>
-            I am working through Astro's introductory tutorial. This is the
-            second page on my website, and it's the first one I built myself!
-        </p>
+<BaseLayout PageTitle={PageTitle}>
+    <h2>... and my new Astro site!</h2>
 
-        <p>
-            This site will update as I complete more of the tutorial, so keep
-            checking back and see how my journey is going!
-        </p>
-    </body>
-</html>
+    <p>
+        I am working through Astro's introductory tutorial. This is the second
+        page on my website, and it's the first one I built myself!
+    </p>
+
+    <p>
+        This site will update as I complete more of the tutorial, so keep
+        checking back and see how my journey is going!
+    </p>
+
+    <p>Berikut seputar tentang Saya:</p>
+    <ul>
+        <li>
+            Nama Saya adalah {identitas.nama}
+        </li>
+        <li>
+            Umur Saya adalah {identitas.umur} tahun
+        </li>
+        <li>
+            Alamat Saya berada di {identitas.alamat}
+        </li>
+        <li>
+            Pekerjaan Saya adalah {identitas.pekerjaan}
+        </li>
+        {
+            skills.length >= 2 && (
+                <li>
+                    Beberapa skill Saya: {skills[0]} dan {skills[1]}
+                </li>
+            )
+        }
+    </ul>
+
+    <h1>Skill Gue</h1>
+    <ol>
+        {skills.map((s) => <li class="skill">{s}</li>)}
+    </ol>
+
+    <p>
+        {senang && "Saya senang belajar Astro!"}
+    </p>
+
+    <p>
+        {
+            senang
+                ? "Saya senang belajar Astro!"
+                : "Saya tidak senang belajar Astro!"
+        }
+    </p>
+</BaseLayout>
